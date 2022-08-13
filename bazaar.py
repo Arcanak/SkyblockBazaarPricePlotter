@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
 import numpy as np
+import mplfinance as mpf
 
 
 input = input()
@@ -31,20 +32,33 @@ def get_data_df(url):
     return df
 
 df = get_data_df(url)
-price = df['minBuy'].values + df['minSell'].values + df['maxSell'].values / 3
-volume = df['sellVolume'].values + df['buyVolume'].values
+minBuy = df['minBuy'].values
+maxSell = df['maxSell'].values
+volume = df['sellVolume'].values + df['buyVolume'].values / 2
 timestamp = df['timestamp'].values
 
-fig, ax = plt.subplots()
-
-plt.plot(timestamp, price, label='price')
-plt.plot(timestamp, np.convolve(price, np.ones(20)/20, mode='same'), label='smoothed price')
+plt.figure(figsize=(12,8))
+plt.plot(timestamp, minBuy, label='minBuy', color='blue')
+plt.plot(timestamp, maxSell, label='maxSell', color='red')
 plt.bar(timestamp, volume, label='sellVolume', color='g', alpha=0.3)
 plt.yscale('log')
+plt.legend()
 
-
+plt.figure(figsize=(12,8))
+plt.plot(timestamp,  1 / minBuy, label='minBuy', color='blue')
+plt.plot(timestamp, 1 / maxSell, label='maxSell', color='red')
+plt.yscale('log')
 
 plt.show()
+
+
+#plt.plot(timestamp, np.convolve(price, np.ones(20)/20, mode='same'), label='smoothed price')
+#plt.bar(timestamp, volume, label='sellVolume', color='g', alpha=0.3)
+#plt.yscale('log')
+
+
+
+#plt.show()
 
 
 
