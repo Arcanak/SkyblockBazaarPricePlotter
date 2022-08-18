@@ -5,7 +5,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
 import numpy as np
-import mplfinance as mpf
 
 
 input = input()
