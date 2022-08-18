@@ -38,22 +38,22 @@ volume = df['sellVolume'].values + df['buyVolume'].values / 2
 timestamp = df['timestamp'].values
 
 plt.figure(figsize=(12,8))
-plt.plot(timestamp, minBuy, label='minBuy', color='blue')
-plt.plot(timestamp, maxSell, label='maxSell', color='red')
-plt.bar(timestamp, volume, label='sellVolume', color='g', alpha=0.3)
+plt.plot(timestamp, np.convolve(minBuy, np.ones(2)/2, mode='same'), label='minBuy', color='blue')
+plt.plot(timestamp, np.convolve(maxSell, np.ones(2)/2, mode='same'), label='maxSell', color='red')
+plt.bar(timestamp, volume, label='sellVolume', color='g', alpha=0.2)
 plt.yscale('log')
 plt.legend()
 
 plt.figure(figsize=(12,8))
-plt.plot(timestamp,  1 / minBuy, label='minBuy', color='blue')
-plt.plot(timestamp, 1 / maxSell, label='maxSell', color='red')
+plt.plot(timestamp,  1 / np.convolve(minBuy, np.ones(2)/2, mode='same'), label='minBuy', color='blue')
+plt.plot(timestamp, 1 / np.convolve(maxSell, np.ones(2)/2, mode='same'), label='maxSell', color='red')
 plt.yscale('log')
 
 plt.show()
 
 
 #plt.plot(timestamp, np.convolve(price, np.ones(20)/20, mode='same'), label='smoothed price')
-#plt.bar(timestamp, volume, label='sellVolume', color='g', alpha=0.3)
+#plt.bar(timestamp, volume, label='sellVolume', color='g', alpha=0.2)
 #plt.yscale('log')
 
 
